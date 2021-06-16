@@ -12,10 +12,15 @@ const oldPointStructure = {
   10: ['Q', 'Z']
 };
 
+const vowelPointStructure = {
+  1: ['B','C','D','F','G','H','J','K','L','M','N','P','Q','R','S','T','V','W','X','Z'],
+  3: ['A','E','I','O','U','Y']
+};
+
 function oldScrabbleScorer(word) {
 	word = word.toUpperCase();
 	let letterPoints = "";
- 
+  console.log("Old Point Structure")
 	for (let i = 0; i < word.length; i++) {
  
 	  for (const pointValue in oldPointStructure) {
@@ -33,16 +38,54 @@ function oldScrabbleScorer(word) {
 // don't change the names or your program won't work as expected. //
 
 function initialPrompt() {
-   console.log("Let's play some scrabble! Enter a word:");
+   firstWord= input.question("Let's play some scrabble! Enter a word to score:");
+   return firstWord;
 };
 
-let simpleScore;
+function simpleScorer(word) {
+  word = word.toUpperCase();
+  let firstWord="";
+  console.log("Simple Score")
+  for (let i = 0; i < word.length; i++){
+    firstWord += `Points for '${word[i]}' : 1\n`
+  }
+  return firstWord;
+}
 
-let vowelBonusScore;
 
-let scrabbleScore;
+function vowelBonusScorer(word){
+  word = word.toUpperCase();
+  let firstWord="";
+  console.log("Vowel Bonus");
+  for (let i=0; i<word.length; i++){
+    for(const pointValue in vowelPointStructure){
+      if(vowelPointStructure[pointValue].includes(word[i])){
+        firstWord += `Points for '${word[i]}': ${pointValue}\n`
+     }
+   }
+  }
+  return firstWord;
+}
 
-const scoringAlgorithms = [];
+let simpleScore = {
+  'name': 'Simple Score',
+  'description': 'Each letter is worth 1 point.',
+  'scorerFunction': simpleScorer
+}
+
+let vowelBonusScore = {
+  'name': 'Bonus Vowels',
+  'description': 'Vowels are 3 pts, consonants are 1 pt.',
+  'scorerFunction': vowelBonusScorer
+}
+
+let scrabbleScore = {
+  'name': 'Scrabble',
+  'description': 'The traditional scoring algorithm.',
+  'scorerFunction': oldScrabbleScorer
+}
+
+const scoringAlgorithms = [simpleScore, vowelBonusScore, scrabbleScore];
 
 function scorerPrompt() {}
 
@@ -51,7 +94,7 @@ function transform() {};
 let newPointStructure;
 
 function runProgram() {
-   initialPrompt();
+   let promptWord = initialPrompt();
    
 }
 
@@ -68,5 +111,4 @@ module.exports = {
    newPointStructure: newPointStructure,
 	runProgram: runProgram,
 	scorerPrompt: scorerPrompt
-};
-
+  }
