@@ -93,7 +93,7 @@ let vowelBonusScore = {
 let scrabbleScore = {
   'name': 'Scrabble',
   'description': 'The traditional scoring algorithm.',
-  'scorerFunction': scrabbleScorer
+  'scoringFunction': scrabbleScorer
 }
 
 const scoringAlgorithms = [simpleScore, vowelBonusScore, scrabbleScore];
