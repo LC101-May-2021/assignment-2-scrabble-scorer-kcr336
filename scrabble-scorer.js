@@ -12,11 +12,6 @@ const oldPointStructure = {
   10: ['Q', 'Z']
 };
 
-const vowelPointStructure = {
-  1: ['B','C','D','F','G','H','J','K','L','M','N','P','Q','R','S','T','V','W','X','Z'],
-  3: ['A','E','I','O','U','Y']
-};
-
 function oldScrabbleScorer(word) {
 	word = word.toUpperCase();
 	let letterPoints = 0;
@@ -47,15 +42,18 @@ function simpleScorer(word) {
 
 
 function vowelBonusScorer(word){
+  let vowels = ['A','E','I','O','U','Y']
   word = word.toUpperCase();
   let firstWord=0;
   for (let i=0; i<word.length; i++){
-    for(const pointValue in vowelPointStructure){
-      if(vowelPointStructure[pointValue].includes(word[i])){
-        firstWord = firstWord += (Number(pointValue))
-     }
+    if (vowels.includes(word[i])){
+      firstWord +=3;
+    }
+    else{
+      firstWord++
+    }
    }
-  }console.log(`Points for ${word} : ${firstWord}`);
+  console.log(`Points for ${word} : ${firstWord}`);
   return firstWord;
 }
 
@@ -89,38 +87,20 @@ function scorerPrompt(word) {
   return scorerChoice
 }
 
-function transform() {}
+let newPointStructure={}
 
-const newPointStructure= {
-  'A': 1,
-  'B': 3,
-  'C': 3,
-  'D': 2,
-  'E': 1,
-  'F': 4,
-  'G': 2,
-  'H': 4,
-  'I': 1,
-  'J': 8,
-  'K': 5,
-  'L': 1,
-  'M': 3,
-  'N': 1,
-  'O': 1,
-  'P': 3,
-  'Q': 10,
-  'R': 1,
-  'S': 1,
-  'T': 1,
-  'U': 1,
-  'V': 4,
-  'W': 4,
-  'X': 8,
-  'Y': 4,
-  'Z': 10
+function transform(obj) {
+ for (numericValue in obj){
+  for (let letterValue of obj[numericValue]){
+    newPointStructure[letterValue.toLowerCase()]=numericValue
+    }
+  }
 }
+ 
+
 
 function runProgram() {
+   let newPoints = console.log(transform(oldPointStructure));
    let promptWord = initialPrompt();
    let promptChoice = scorerPrompt(promptWord);
 }
