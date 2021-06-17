@@ -81,13 +81,13 @@ function scrabbleScorer(word, newPointStructure){
 let simpleScore = {
   'name': 'Simple Score',
   'description': 'Each letter is worth 1 point.',
-  'scorerFunction': simpleScorer
+  'scoringFunction': simpleScorer
 }
 
 let vowelBonusScore = {
   'name': 'Bonus Vowels',
   'description': 'Vowels are 3 pts, consonants are 1 pt.',
-  'scorerFunction': vowelBonusScorer
+  'scoringFunction': vowelBonusScorer
 }
 
 let scrabbleScore = {
